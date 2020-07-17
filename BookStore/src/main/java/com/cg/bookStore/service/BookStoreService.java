@@ -1,11 +1,12 @@
 package com.cg.bookStore.service;
 
-public interface BookStoreService {
-	
-	public boolean checkCustomerExists(int customerId);
-	
-	public boolean deleteCustomer(int customerId);
-	
-	public boolean deleteUser(int adminId);
+import com.cg.bookStore.exception.UserException;
 
+public interface BookStoreService {
+
+	boolean deleteUser(int adminId) throws UserException;
+	
+	public void deleteCustomer(String email) throws UserException;
+	
+	
 }

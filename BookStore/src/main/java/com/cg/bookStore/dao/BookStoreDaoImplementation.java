@@ -2,10 +2,14 @@ package com.cg.bookStore.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import com.cg.bookStore.entities.Admin;
 import com.cg.bookStore.entities.CustomerInformation;
+import com.cg.bookStore.entities.CustomerReview;
+import com.cg.bookStore.entities.OrderInformation;
+import com.cg.bookStore.exception.UserException;
 
 @Transactional
 @Repository
@@ -24,9 +28,10 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 	 *                   otherwise returns false if account does not exists 
 	 * Created By        Vaishali Tiwari                   
 	 * Created on        16-July-2020
+	 
 	 **********************************************************************************/
 	@Override
-	public boolean deleteUser(int adminId){
+	public boolean deleteUser(int adminId) throws UserException{
 		
 		if(entityManager.contains(entityManager.find(Admin.class, adminId)))
 		{
@@ -36,43 +41,64 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 		}
 		else
 		{
-			return false;
+			throw new UserException("User Not found");
 		}
 		
 	}
-	/********************************************************************************
-	 * Method            checkCustomerExist 
-	 * Description       for checking whether the customer account exists or not
-	 * returns boolean   returns true if account exists otherwise returns false if 
-	 *                   account does not exists 
-	 * Created By        Vaishali Tiwari                   
-	 * Created on        16-July-2020
-	 **********************************************************************************/
 	
 	@Override
-	public boolean checkCustomerExists(int customerId) {
-		return entityManager.contains(entityManager.find(CustomerInformation.class, customerId));
-	}
-	
-
-	/********************************************************************************
-	 * Method            deleteCustomer
-	 * Description       for deleting customer's account if he doesn't have any active
-	 *                   order and he has not given any review.
-	 * returns boolean   returns true if account gets deleted otherwise returns false if 
-	 *                   account does not gets deleted
-	 * Created By        Vaishali Tiwari                   
-	 * Created on        16-July-2020
-	 **********************************************************************************/
-	
-	@Override
-	public boolean deleteCustomer(int customerId)
-	{
-		return false;
+	public CustomerInformation getCustomerByEmail(String email) throws UserException{
 		
+		CustomerInformation customer=null;
+		try {
+			
+			String Qstr="Select customer From CustomerInformation customer Where customer.emailAddress=:email";
+			TypedQuery<CustomerInformation> query=entityManager.createQuery(Qstr, CustomerInformation.class).setParameter("email", email);
+			customer=query.getSingleResult();
+		}
+		catch(Exception e){
+			
+			throw new UserException("Customer not found.");
+		}
+		return customer;
 	}
 	
-
+	@Override
+	public boolean getCustomerReviewStatus(int customerId) throws UserException{
+		
+		try {
+			String Qstr="Select review From CustomerReview review Join review.customerDetails customer Where customer.customerId=:customerId";
+			TypedQuery query = entityManager.createQuery(Qstr, CustomerReview.class);
+			query.getSingleResult();
+		}
+		catch(Exception e){
+			
+			throw new UserException("Cannot delete as customer has given a review");
+		}
+		return true;
+	}
 	
-
+	@Override
+	public boolean getOrderInformationStatus(int customerId) throws UserException{ 
+		
+		//returns false if no order is found
+		
+		try {
+			String Qstr="Select order From OrderInformation order Join order.customerDetails customer Where customer.customerId=:customerId";
+			TypedQuery query = entityManager.createQuery(Qstr, OrderInformation.class);
+			query.getSingleResult();
+		}
+		catch(Exception e){
+			
+			throw new UserException("Cannot delete as Customer has an active order");
+		}
+		return true;
+	}
+	
+	@Override
+	public void deleteCustomer(CustomerInformation customer){
+		
+		entityManager.remove(customer);
+	}
+		
 }

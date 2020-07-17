@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.bookStore.dao.BookStoreDao;
+import com.cg.bookStore.entities.CustomerInformation;
+import com.cg.bookStore.exception.UserException;
 
 /********************************************************************************
  * @author        Vaishali Tiwari 
@@ -19,22 +21,30 @@ public class BookStoreServiceImplementation implements BookStoreService{
 	BookStoreDao bookStoreDao;
 	
 	@Override
-	public boolean deleteUser(int adminId)
+	public boolean deleteUser(int adminId) throws UserException
 	{
 		return bookStoreDao.deleteUser(adminId);
 	}
 	
 	@Override
-	public boolean checkCustomerExists(int customerId)
+	public void deleteCustomer(String email) throws UserException
 	{
-		return bookStoreDao.checkCustomerExists(customerId);
+		CustomerInformation customer=bookStoreDao.getCustomerByEmail(email);
+		boolean customerReviewStatus = bookStoreDao.getCustomerReviewStatus(customer.getCustomerId());
+		
+		if(customerReviewStatus==true)
+		{
+			//throw exception
+		}
+		
+		boolean orderInformationStatus = bookStoreDao.getOrderInformationStatus(customer.getCustomerId());
+		
+		if(orderInformationStatus==true)
+		{
+			//throw exception
+		}
+		
+		bookStoreDao.deleteCustomer(customer);
 	}
-	
-	@Override
-	public boolean deleteCustomer(int customerId)
-	{
-		return bookStoreDao.deleteCustomer(customerId);
-	}
-	
 
 }

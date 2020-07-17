@@ -29,7 +29,7 @@ import org.hibernate.annotations.DynamicUpdate;
 		@Column(name="email")
 		@Size(min=10, max=64)
 		private String email;
-		
+
 		@Column(name="fullName")
 		@Size(min=8, max= 16)
 		private String fullName;
@@ -37,6 +37,19 @@ import org.hibernate.annotations.DynamicUpdate;
 		@Column(name="password")
 		@Size(min=8, max= 16)
 		private String password;
+		
+		public Admin() {
+			super();
+		}
+
+		public Admin(int adminId, @Size(min = 10, max = 64) String email, @Size(min = 8, max = 16) String fullName,
+				@Size(min = 8, max = 16) String password) {
+			super();
+			this.adminId = adminId;
+			this.email = email;
+			this.fullName = fullName;
+			this.password = password;
+		}
 
 		public int getAdminId() {
 			return adminId;

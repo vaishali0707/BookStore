@@ -1,11 +1,18 @@
 package com.cg.bookStore.dao;
 
+import com.cg.bookStore.entities.CustomerInformation;
+import com.cg.bookStore.exception.UserException;
+
 public interface BookStoreDao {
 	
-	public boolean checkCustomerExists(int customerId);
-	
-	public boolean deleteCustomer(int customerId);
-	
-	public boolean deleteUser(int adminId);
+	public boolean deleteUser(int adminId) throws UserException;
+
+	void deleteCustomer(CustomerInformation customer);
+
+	CustomerInformation getCustomerByEmail(String email) throws UserException;
+
+	boolean getCustomerReviewStatus(int customerId) throws UserException;
+
+	boolean getOrderInformationStatus(int customerId) throws UserException;
 
 }

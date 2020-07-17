@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import com.cg.bookStore.controller.DeletionController;
+import com.cg.bookStore.controller.BookStoreController;
 
 
 public class RestControllerTesting extends BookStoreApplicationTests {
@@ -22,7 +21,7 @@ public class RestControllerTesting extends BookStoreApplicationTests {
 
 	
 	@InjectMocks
-	private DeletionController deletionController;
+	private BookStoreController bookStoreController;
 	
 	private MockMvc mockMvc;
 	
@@ -30,7 +29,7 @@ public class RestControllerTesting extends BookStoreApplicationTests {
 	@Before
 	public void setup() throws Exception {
 	//	mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		mockMvc = MockMvcBuilders.standaloneSetup(deletionController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(bookStoreController).build();
 	}
 	
 	@Test
