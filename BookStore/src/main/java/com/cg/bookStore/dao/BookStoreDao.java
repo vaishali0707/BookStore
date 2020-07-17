@@ -7,7 +7,7 @@ public interface BookStoreDao {
 	
 	public boolean deleteUser(int adminId) throws UserException;
 
-	void deleteCustomer(CustomerInformation customer);
+	public boolean deleteCustomer(CustomerInformation customer);
 
 	CustomerInformation getCustomerByEmail(String email) throws UserException;
 

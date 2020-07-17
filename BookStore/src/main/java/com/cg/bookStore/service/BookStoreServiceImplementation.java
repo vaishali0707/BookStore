@@ -27,24 +27,24 @@ public class BookStoreServiceImplementation implements BookStoreService{
 	}
 	
 	@Override
-	public void deleteCustomer(String email) throws UserException
+	public boolean deleteCustomer(String email) throws UserException
 	{
 		CustomerInformation customer=bookStoreDao.getCustomerByEmail(email);
 		boolean customerReviewStatus = bookStoreDao.getCustomerReviewStatus(customer.getCustomerId());
 		
 		if(customerReviewStatus==true)
 		{
-			//throw exception
+			throw new UserException("Review found");
 		}
 		
 		boolean orderInformationStatus = bookStoreDao.getOrderInformationStatus(customer.getCustomerId());
 		
 		if(orderInformationStatus==true)
 		{
-			//throw exception
+			throw new UserException("Active Order");
 		}
 		
-		bookStoreDao.deleteCustomer(customer);
+		return bookStoreDao.deleteCustomer(customer);
 	}
 
 }

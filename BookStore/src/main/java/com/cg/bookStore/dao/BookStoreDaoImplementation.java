@@ -75,7 +75,7 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 			
 			throw new UserException("Cannot delete as customer has given a review");
 		}
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -92,13 +92,14 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 			
 			throw new UserException("Cannot delete as Customer has an active order");
 		}
-		return true;
+		return false;
 	}
 	
 	@Override
-	public void deleteCustomer(CustomerInformation customer){
+	public boolean deleteCustomer(CustomerInformation customer){
 		
 		entityManager.remove(customer);
+		return true;
 	}
 		
 }

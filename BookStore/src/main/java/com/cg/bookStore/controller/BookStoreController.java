@@ -38,7 +38,7 @@ public class BookStoreController {
 **********************************************************************************/
 
 	@DeleteMapping("/user/{adminId}")
-	public ResponseEntity<String> deleteUser(@PathVariable int adminId) throws UserException {
+	public ResponseEntity<String> deleteUser(@PathVariable int adminId, @PathVariable String email) throws UserException {
 		boolean result = bookStoreService.deleteUser(adminId);
 		if (result) {
 			response = "{\"data\":\"User Account deleted Sucessfully\"}";
@@ -47,18 +47,13 @@ public class BookStoreController {
 	}
 	
 	@DeleteMapping("/user/{customerId}")
-	public ResponseEntity<String> deleteCustomer(@PathVariable int customerId) throws UserException {
-		boolean result = bookStoreService.deleteCustomer(customerId);
+	public ResponseEntity<String> deleteCustomer(@PathVariable int customerId, @PathVariable String email) throws UserException {
+		boolean result = bookStoreService.deleteCustomer(email);
 		if (result) {
 			response = "{\"data\":\"Customer Account deleted Sucessfully\"}";
 		} 
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
-	@RequestMapping("/hello")
-	public String helloWorld(){
-		
-			return "Hello";
-		}
 
 }
 
