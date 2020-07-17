@@ -75,9 +75,10 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 		}
 		catch(Exception e){
 			
-			throw new UserException("Cannot delete as customer has given a review");
+			return false;
 		}
-		return false;
+	
+		return true;
 	}
 	
 	@Override
@@ -87,14 +88,14 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 		
 		try {
 			String Qstr="Select order From OrderInformation order Join order.customerDetails customer Where customer.customerId=:customerId";
-			TypedQuery query = entityManager.createQuery(Qstr, OrderInformation.class);
+			TypedQuery query = entityManager.createQuery(Qstr, OrderInformation.class).setParameter("customerId", customerId);
 			query.getSingleResult();
 		}
 		catch(Exception e){
 			
-			throw new UserException("Cannot delete as Customer has an active order");
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	@Override
