@@ -70,7 +70,7 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 		
 		try {
 			String Qstr="Select review From CustomerReview review Join review.customerDetails customer Where customer.customerId=:customerId";
-			TypedQuery query = entityManager.createQuery(Qstr, CustomerReview.class);
+			TypedQuery <CustomerReview>query = entityManager.createQuery(Qstr, CustomerReview.class);
 			query.getSingleResult();
 		}
 		catch(Exception e){
@@ -85,18 +85,24 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 	public boolean getOrderInformationStatus(int customerId) throws UserException{ 
 		
 		//returns false if no order is found
+		String status;
 		
 		try {
-			String Qstr="Select order From OrderInformation order Join order.customerDetails customer Where customer.customerId=:customerId";
-			TypedQuery query = entityManager.createQuery(Qstr, OrderInformation.class).setParameter("customerId", customerId);
-			query.getSingleResult();
+			String Qstr="Select bookStoreOrder From OrderInformation bookStoreOrder Join bookStoreOrder.customerDetails customer Where customer.customerId=:customerId";
+			TypedQuery<OrderInformation> query = entityManager.createQuery(Qstr, OrderInformation.class).setParameter("customerId", customerId);
+			status=query.getSingleResult().getOrderStatus();
 		}
 		catch(Exception e){
 			
 			return false;
 		}
+		if(status.equals("Completed"))
+		{
+			return false;
+		}
 		return true;
 	}
+		
 	
 	@Override
 	public boolean deleteCustomer(CustomerInformation customer){
