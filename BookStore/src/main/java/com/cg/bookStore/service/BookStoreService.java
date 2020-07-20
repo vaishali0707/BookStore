@@ -6,7 +6,7 @@ public interface BookStoreService {
 
 	boolean deleteUser(int adminId) throws UserException;
 	
-	public boolean deleteCustomer(String email) throws UserException;
+	public void deleteCustomer(String email) throws UserException;
 	
 	
 }

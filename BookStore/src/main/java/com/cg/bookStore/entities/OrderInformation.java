@@ -48,6 +48,25 @@ public class OrderInformation {
 	@Column(name="payment_method")
 	private String paymentMethod;
 
+	
+
+	public OrderInformation(CustomerInformation customerDetails, String shippingAddress, int quantity, float subTotal,
+			float total, String orderStatus, String paymentMethod) {
+		super();
+		this.customerDetails = customerDetails;
+		this.shippingAddress = shippingAddress;
+		this.quantity = quantity;
+		this.subTotal = subTotal;
+		this.total = total;
+		this.orderStatus = orderStatus;
+		this.paymentMethod = paymentMethod;
+	}
+
+	public OrderInformation() {
+		super();
+		
+	}
+
 	public int getOrderId() {
 		return orderId;
 	}

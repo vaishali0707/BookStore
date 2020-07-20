@@ -50,6 +50,21 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 		
 	}
 	
+	/********************************************************************************
+	 * Method            getCustomer
+	 * Description       for getting the customer's detail
+	 * return            returns the customer details
+	 * Created By        Vaishali Tiwari                   
+	 * Created on        16-July-2020
+	 
+	 **********************************************************************************/
+	
+	@Override
+	public CustomerInformation getCustomer(Integer customer_id) {
+		CustomerInformation customer=entityManager.find(CustomerInformation.class, customer_id);
+		return customer;
+	}
+	
 
 	/********************************************************************************
 	 * Method            getCustomerByEmail 
@@ -78,6 +93,22 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 		return customer;
 	}
 	
+	/********************************************************************************
+	 * Method            getOrderByCustomer
+	 * Description       for getting the order's detail by customer
+	 * return            returns the order details  
+	 * Created By        Vaishali Tiwari                   
+	 * Created on        16-July-2020
+	 
+	 **********************************************************************************/
+	
+	@Override
+	public OrderInformation getOrderByCustomer(int customerId)
+	{
+		String Qstr="Select bookStoreOrder From OrderInformation bookStoreOrder Join bookStoreOrder.customerDetails customer Where customer.customerId=:customerId";
+		TypedQuery<OrderInformation> query = entityManager.createQuery(Qstr, OrderInformation.class).setParameter("customerId", customerId);
+		return query.getSingleResult();
+	}
 
 	/********************************************************************************
 	 * Method            getCustomerReviewStatus 
@@ -136,7 +167,7 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 			
 			return false;
 		}
-		if(status.equals("Completed"))
+		if(status.equals("delivered"))
 		{
 			return false;
 		}
@@ -152,12 +183,11 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 	 
 	 **********************************************************************************/
 		
-	
+
 	@Override
-	public boolean deleteCustomer(CustomerInformation customer){
-		
+	public void deleteCustomer(CustomerInformation customer,OrderInformation order)
+	{   entityManager.remove(order);
 		entityManager.remove(customer);
-		return true;
 	}
 		
 }
