@@ -1,1 +1,37 @@
-<p>manage-customer works!</p>
+<header>
+    <img src="../assets/BookstoreAdminLogo.png" alt="logo">
+  <ul>
+    <li><a>Users</a></li>
+    <li><a>Categories</a></li>
+    <li><a>Books</a></li>
+    <li><a>Customers</a></li>
+    <li><a>Reviews</a></li>
+    <li><a>Orders</a></li>
+  </ul>
+  </header>
+  <main>
+    
+    <div class="modal" *ngIf=showModal>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Delete Customer</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete the Customer?</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger" (click)="deleteCustomer()">Delete</button>
+            <button class="btn btn-default" (click)="closeDialog()">Close</button>
+           
+          </div>
+        </div>
+      </div>
+  </div>
+    <button class="btn btn-danger" (click)="openDialog()">Delete</button>
+    
+  </main>
+  <footer>
+    <p>Copyright (c) 2017 by Evergreen Books Co., Ltd</p>
+  </footer>
+

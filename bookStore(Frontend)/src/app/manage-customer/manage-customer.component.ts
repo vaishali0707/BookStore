@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ManageUserService } from '../manage-user.service';
 
 @Component({
   selector: 'app-manage-customer',
@@ -7,9 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageCustomerComponent implements OnInit {
 
-  constructor() { }
+  showModal=false;
+  email:any="customer4@capgemini.com";
+
+  constructor(private _manageService:ManageUserService) { }
 
   ngOnInit(): void {
+  }
+
+  openDialog()
+  {
+    this.showModal=true;
+
+  }
+  closeDialog()
+  {
+    this.showModal=false;
+  }
+  deleteCustomer()
+  {
+    this._manageService.deleteCustomer(this.email).subscribe(
+      data=>{
+        console.log(data);
+      }
+    )
   }
 
 }
