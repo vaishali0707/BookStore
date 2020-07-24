@@ -30,6 +30,10 @@ export class ManageUserComponent implements OnInit {
     this._manageService.deleteUser(this.adminId).subscribe(
       data=>{
         console.log(data);
+      },
+      error=>{
+        alert(error.error);
+        this.showModal=false;
       }
     )
   }

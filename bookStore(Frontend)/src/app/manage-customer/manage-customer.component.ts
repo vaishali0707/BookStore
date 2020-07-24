@@ -30,6 +30,10 @@ export class ManageCustomerComponent implements OnInit {
     this._manageService.deleteCustomer(this.email).subscribe(
       data=>{
         console.log(data);
+      },
+      error=>{
+       alert(error.error);
+       this.showModal=false;
       }
     )
   }
