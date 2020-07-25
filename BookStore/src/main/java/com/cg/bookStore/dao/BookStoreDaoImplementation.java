@@ -105,9 +105,18 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 	@Override
 	public OrderInformation getOrderByCustomer(int customerId)
 	{
-		String Qstr="Select bookStoreOrder From OrderInformation bookStoreOrder Join bookStoreOrder.customerDetails customer Where customer.customerId=:customerId";
-		TypedQuery<OrderInformation> query = entityManager.createQuery(Qstr, OrderInformation.class).setParameter("customerId", customerId);
-		return query.getSingleResult();
+		OrderInformation order=null;
+		try
+		{
+			String Qstr="Select bookStoreOrder From OrderInformation bookStoreOrder Join bookStoreOrder.customerDetails customer Where customer.customerId=:customerId";
+			TypedQuery<OrderInformation> query = entityManager.createQuery(Qstr, OrderInformation.class).setParameter("customerId", customerId);
+			order=query.getSingleResult();
+		}
+		catch(Exception e)
+		{
+			return order;
+		}
+		return order;
 	}
 
 	/********************************************************************************
@@ -186,7 +195,11 @@ public class BookStoreDaoImplementation implements BookStoreDao{
 
 	@Override
 	public void deleteCustomer(CustomerInformation customer,OrderInformation order)
-	{   entityManager.remove(order);
+	{   
+		if(order!=null)
+		{	
+			entityManager.remove(order);
+		}
 		entityManager.remove(customer);
 	}
 		

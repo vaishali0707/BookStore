@@ -40,22 +40,22 @@ public class BookStoreApplication implements CommandLineRunner{
 //		entityManager.persist(admin2);
 //		entityManager.persist(admin3);
 		
-//		LocalDate localDate= LocalDate.now();
+//	    LocalDate localDate= LocalDate.now();
 //		CustomerInformation customer1 = new CustomerInformation("customer1@capgemini.com","customer1","custom@123","1234567890","city1",123456,"country1",localDate);
 //		CustomerInformation customer2 = new CustomerInformation("customer2@capgemini.com","customer2","custom@123","1234567890","city2",123456,"country2",localDate);
-//		CustomerInformation customer3 = new CustomerInformation("customer3@capgemini.com","customer3","custom@123","1234567890","city3",123456,"country3",localDate);
+//		CustomerInformation customer4 = new CustomerInformation("customer4@capgemini.com","customer4","custom@123","1234567890","city4",123456,"country4",localDate);
 //		entityManager.persist(customer1);
 //		entityManager.persist(customer2);
-//		entityManager.persist(customer3);
+//		entityManager.persist(customer4);
 		
 //		CustomerReview review1=new CustomerReview(1,"A very Nice book","Awesome book,one should must read",84);
 //		entityManager.persist(review1);
 //		CustomerReview review2=new CustomerReview(1,"NOT A GOOD book","WASTE OF MONEY",103);
 //		entityManager.persist(review2);
 //		
-		CustomerInformation customer5=dao.getCustomer(104);
-		OrderInformation order=new OrderInformation(customer5,"mera ghar",5,new Float(500.55),new Float(500.55),"delivered","cash");
-		entityManager.persist(order);
+//		CustomerInformation customer5=dao.getCustomer(121);
+//		OrderInformation order=new OrderInformation(customer5,"mera ghar",5,new Float(500.55),new Float(500.55),"delivered","cash");
+//  	entityManager.persist(order);
 //		CustomerInformation customer=dao.getCustomer(102);
 //		OrderInformation order2=new OrderInformation(customer,"Kanpur",3,new Float(300.55),new Float(1501.55),"processing","cash");
 //		entityManager.persist(order2);

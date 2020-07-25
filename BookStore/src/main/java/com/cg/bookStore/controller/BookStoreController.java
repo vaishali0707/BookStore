@@ -3,6 +3,7 @@ package com.cg.bookStore.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,11 +36,11 @@ public class BookStoreController {
 * Created on    16-July-2020
  * @throws UserException 
 **********************************************************************************/
-
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/admin/deleteUser/{adminId}")
 	public ResponseEntity<String> deleteUser(@PathVariable int adminId) throws UserException {
 		bookStoreService.deleteUser(adminId); 
-		return new ResponseEntity<String>("User Account deleted", HttpStatus.OK);
+		return new ResponseEntity<String>("{\"data\":\"User deleted Sucessfully\"} ", HttpStatus.OK);
 	}
 	
 /**********************************************************************************
@@ -51,11 +52,11 @@ public class BookStoreController {
 * Created on    16-July-2020
  * @throws UserException 
 **********************************************************************************/
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/admin/deleteCustomer/{email}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable String email) throws UserException {
 		bookStoreService.deleteCustomer(email);
-		return new ResponseEntity<String>("Customer Account deleted", HttpStatus.OK);
+		return new ResponseEntity<String>("{\"data\":\"Customer deleted Sucessfully\"} ", HttpStatus.OK);
 	} 
 
 }
